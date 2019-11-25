@@ -1,12 +1,33 @@
 #include<stdio.h>//Jogo BATALHA NAVAL 
 #include<stdlib.h>//Developed by GRUPO 10 ;)
 
+#define VER  "\033[0;31m" // Cor vermelha
+#define CIA  "\033[1;36m" // Cor Ciano
+#define RESET "\033[0m"   // Reseta cor
+#define TEMPO 100000
+
 void geratab(char tab[][10]){
 	 int i,j;
 	 for(i= 0; i < 10; i++)
 		for(j =0; j<10; j++){
 					tab[i][j]= '~';
 				} 			
+}
+
+void titulo(void)
+{
+    printf(VER"██████"CIA"╗  "VER"█████"CIA"╗ "VER"████████"CIA"╗ "VER"█████"CIA"╗ "VER"██"CIA"╗     "VER"██"CIA"╗  "VER"██"CIA"╗ "VER"█████"CIA"╗     "VER"███"CIA"╗   "VER"██"CIA"╗ "VER"█████"CIA"╗ "VER"██"CIA"╗   "VER"██"CIA"╗ "VER"█████"CIA"╗ "VER"██"CIA"╗ \n");    
+    usleep(TEMPO);
+    printf(VER"██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██║     ██║  ██║██╔══██╗    ████╗  ██║██╔══██╗██║   ██║██╔══██╗██║     \n");
+    usleep(TEMPO);
+    printf("██████╔╝███████║   ██║   ███████║██║     ███████║███████║    ██╔██╗ ██║███████║██║   ██║███████║██║     \n");
+    usleep(TEMPO);
+    printf("██╔══██╗██╔══██║   ██║   ██╔══██║██║     ██╔══██║██╔══██║    ██║╚██╗██║██╔══██║╚██╗ ██╔╝██╔══██║██║     \n");
+    usleep(TEMPO);
+    printf("██████╔╝██║  ██║   ██║   ██║  ██║███████╗██║  ██║██║  ██║    ██║ ╚████║██║  ██║ ╚████╔╝ ██║  ██║███████╗ \n");
+    usleep(TEMPO);
+    printf("╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═══╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝\n"RESET);
+    
 }
 
 void mostratabPC(char tab[][10]){
@@ -173,7 +194,7 @@ int main(){
 	do{	
 		naviosPC(tabC); //gera a posi��o dos navios do PC
 		naviosJ(tabJ); //gera a posi��o dos navios do Jogador 
-		printf("                     A  B A T A L H A   N A V A L: \n"); //apresenta��o e regras do Jogo
+		titulo(); //apresenta��o e regras do Jogo
 		printf("\n O jogo apenas terminara quando voce ou seu inimigo destruirem todos os Navios, quem destruir todos os navios primeiro sera o VENCEDOR dessa Batalha");
 		printf("\n \n Regras: Os jogadores terao direito ao um tiro de cada vez, mas queM acertar o navio inimigo podera continuar atirando ate errar\n");
 		printf("  A pontuacao dos navios:\n Submarino: 5 pontos\n Cruzador: 10 pontos\n Hidro-Aviao: 15 pontos\n Encouracado:20 pontos\n Porta-Avioes: 25 pontos\n \n");
