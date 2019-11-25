@@ -233,11 +233,17 @@ int main(){
 					}
 				}
 				else{// Jogador atira
-					printf("\n Sua vez, escolha uma linha e coluna\n");
-					printf(" linha: ");
-					scanf("%d", &i);
-					printf("\n coluna: ");
-					scanf("%d", &j);
+				    do{
+					    printf("\n Sua vez, escolha uma linha e coluna\n");
+					    printf(" linha: ");
+					    scanf("%d", &i);
+					    printf("\n coluna: ");
+					    scanf("%d", &j);
+					    if(i<0 || i>9 || j<0 || j>9){
+					        printf("Coordenadas inválidas,digite novamente\n");
+					    }
+				    }
+				    while(i<0 || i>9 || j<0 || j>9);
 					tiro(tabC, i, j, cC);
 					verificatiro = verificador(tabC, i, j);
 					numtirosJ  ++;
