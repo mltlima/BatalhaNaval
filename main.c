@@ -1,5 +1,5 @@
 #include<stdio.h>//Jogo BATALHA NAVAL 
-#include<stdlib.h>//Developed by GUSTAVO ANTONIO AUGUSTO PEREIRA DE ALMEIDA ;)
+#include<stdlib.h>//Developed by GRUPO 10 ;)
 
 void geratab(char tab[][10]){
 	 int i,j;
