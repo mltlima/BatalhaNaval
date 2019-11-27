@@ -16,17 +16,17 @@ void geratab(char tab[][10]){
 
 void titulo(void)
 {
-    printf(VER"██████"CIA"╗  "VER"█████"CIA"╗ "VER"████████"CIA"╗ "VER"█████"CIA"╗ "VER"██"CIA"╗     "VER"██"CIA"╗  "VER"██"CIA"╗ "VER"█████"CIA"╗     "VER"███"CIA"╗   "VER"██"CIA"╗ "VER"█████"CIA"╗ "VER"██"CIA"╗   "VER"██"CIA"╗ "VER"█████"CIA"╗ "VER"██"CIA"╗ \n");    
+    printf(CIA"                            ██████╗  █████╗ ████████╗ █████╗ ██╗     ██╗  ██╗ █████╗     ███╗   ██╗ █████╗ ██╗   ██╗ █████╗ ██╗ \n");    
     usleep(TEMPO);
-    printf(VER"██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██║     ██║  ██║██╔══██╗    ████╗  ██║██╔══██╗██║   ██║██╔══██╗██║     \n");
+    printf("                            ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██║     ██║  ██║██╔══██╗    ████╗  ██║██╔══██╗██║   ██║██╔══██╗██║     \n");
     usleep(TEMPO);
-    printf("██████╔╝███████║   ██║   ███████║██║     ███████║███████║    ██╔██╗ ██║███████║██║   ██║███████║██║     \n");
+    printf("                            ██████╔╝███████║   ██║   ███████║██║     ███████║███████║    ██╔██╗ ██║███████║██║   ██║███████║██║     \n");
     usleep(TEMPO);
-    printf("██╔══██╗██╔══██║   ██║   ██╔══██║██║     ██╔══██║██╔══██║    ██║╚██╗██║██╔══██║╚██╗ ██╔╝██╔══██║██║     \n");
+    printf("                            ██╔══██╗██╔══██║   ██║   ██╔══██║██║     ██╔══██║██╔══██║    ██║╚██╗██║██╔══██║╚██╗ ██╔╝██╔══██║██║     \n");
     usleep(TEMPO);
-    printf("██████╔╝██║  ██║   ██║   ██║  ██║███████╗██║  ██║██║  ██║    ██║ ╚████║██║  ██║ ╚████╔╝ ██║  ██║███████╗ \n");
+    printf("                            ██████╔╝██║  ██║   ██║   ██║  ██║███████╗██║  ██║██║  ██║    ██║ ╚████║██║  ██║ ╚████╔╝ ██║  ██║███████╗ \n");
     usleep(TEMPO);
-    printf("╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═══╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝\n"RESET);
+    printf("                            ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═══╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝\n"RESET);
     
 }
 
@@ -40,10 +40,14 @@ void mostratabPC(char tab[][10]){
 					}
 					printf("%d ", i);
 				}
-				if(tab[i][j]=='*' || tab[i][j]=='x'){
-					printf("%c ", tab[i][j]);
-				}else{
-					printf("~ ");
+				if(tab[i][j]=='*'){
+					printf(VER"■ "RESET);
+                }
+                else if (tab[i][j]=='x'){
+                    printf(CIA"■ "RESET);
+                }
+				else{
+					printf("■ ");
 				}
 			}
 			printf("\n");
@@ -59,7 +63,22 @@ void mostratabJ(char tab[][10]){
 					}
 					printf("%d ", i);
 				}
-				printf("%c ",tab[i][j]);
+				if(tab[i][j]=='*'){
+					printf(VER"■ "RESET);
+                }
+                else if (tab[i][j]=='x'){
+                    printf(CIA"■ "RESET);
+                }
+                else if (tab[i][j] == 'H' || tab[i][j] == 'C' || tab[i][j] == 'E' || tab[i][j] == 'S' || tab[i][j] == 'P')
+                {
+                    printf("%c ",tab[i][j]);
+                }
+                
+				else{
+					printf("■ ");
+				}
+
+
 				if(j == 9){
 					printf("\n");
 				}
@@ -203,7 +222,7 @@ int main(){
 		do{//jogo
 			
 			do{ //vai repetir enquanto estiver acertando o tiro
-				printf("\n O JOGO MARCARA '*' QUANDO O SEU TIRO ACERTAR UM NAVIO DO INIMIGO, OU O INIMIGO ACERTAR SEU NAVIO E SERA COLOCADO 'x' QUANDO FOR TIRO NA AGUA \n");	
+				printf("\n O JOGO MARCARA"VER "'■'"RESET" QUANDO O SEU TIRO ACERTAR UM NAVIO DO INIMIGO, OU O INIMIGO ACERTAR SEU NAVIO E SERA COLOCADO "CIA"'■'"RESET" QUANDO FOR TIRO NA AGUA \n");	
 				printf("\n Tabuleiro do inimigo:                     Pontos: %d \n \n", pntC);
 				printf("   0 1 2 3 4 5 6 7 8 9 \n");
 				mostratabPC(tabC);	//mostra o tabuleiro do PC(nao mostra os navios)
