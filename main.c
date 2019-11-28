@@ -38,7 +38,7 @@ void mostratabPC(char tab[][10]){
 					if(i<=9){
 						printf(" ");
 					}
-					printf("%d ", i);
+					printf("%c ", i + 65);
 				}
 				if(tab[i][j]=='*'){
 					printf(VER"■ "RESET);
@@ -61,7 +61,7 @@ void mostratabJ(char tab[][10]){
 					if(i<=9){
 						printf(" ");
 					}
-					printf("%d ", i);
+					printf("%c ", i + 65);
 				}
 				if(tab[i][j]=='*'){
 					printf(VER"■ "RESET);
@@ -200,10 +200,13 @@ int verificador(char tabs[][10], int i, int j){
 		return 0;
 	}
 }
-int main(){
+int main(void)
+{
 	int qmjoga, count=0, pntC=0, pntJ=0, numtirosC=0,numtirosJ=0, verificatiro, i, j, fim=0;
 	int cC[5], cJ[5]; //s�o os contadores de cada navio, pois cada parte atingida soma um  e atingindo determinada quantia significa q o navio foi detruido
-	char tabC[10][10],tabJ[10][10], op; //op ve se o usuario vai jogar ou fechar
+	char tabC[10][10],tabJ[10][10], op, temp; //op ve se o usuario vai jogar ou fechar
+
+
 	geratab(tabC); //Gera  o Tab. do PC
 	geratab(tabJ);//Gera  o Tab. do Jogador
 	for(i=0; i<5;i++){
@@ -215,21 +218,21 @@ int main(){
 		naviosJ(tabJ); //gera a posi��o dos navios do Jogador 
 		titulo(); //apresenta��o e regras do Jogo
 		printf("\n O jogo apenas terminara quando voce ou seu inimigo destruirem todos os Navios, quem destruir todos os navios primeiro sera o VENCEDOR dessa Batalha");
-		printf("\n \n Regras: Os jogadores terao direito ao um tiro de cada vez, mas queM acertar o navio inimigo podera continuar atirando ate errar\n");
-		printf("  A pontuacao dos navios:\n Submarino: 5 pontos\n Cruzador: 10 pontos\n Hidro-Aviao: 15 pontos\n Encouracado:20 pontos\n Porta-Avioes: 25 pontos\n \n");
+		printf("\n \n Regras: Os jogadores terao direito ao um tiro de cada vez, mas quem acertar o navio inimigo podera continuar atirando ate errar\n");
+		printf("  O tamanho dos navios:\n  Submarino: 1 \n  Cruzador: 2 \n  Hidro-Aviao: 3 \n  Encouracado: 4\n  Porta-Avioes: 5 \n \n");
 		
 		qmjoga = rand() % 2; //faz um sorteio de quem inicia o jogo - 0 � PC | 1 � Jogador
 		do{//jogo
 			
 			do{ //vai repetir enquanto estiver acertando o tiro
 				printf("\n O JOGO MARCARA"VER "'■'"RESET" QUANDO O SEU TIRO ACERTAR UM NAVIO DO INIMIGO, OU O INIMIGO ACERTAR SEU NAVIO E SERA COLOCADO "CIA"'■'"RESET" QUANDO FOR TIRO NA AGUA \n");	
-				printf("\n Tabuleiro do inimigo:                     Pontos: %d \n \n", pntC);
+				printf("\n Tabuleiro do inimigo:                     \n \n");
 				printf("   0 1 2 3 4 5 6 7 8 9 \n");
 				mostratabPC(tabC);	//mostra o tabuleiro do PC(nao mostra os navios)
 	
 				printf("\n  - - - - - - - - - -  \n \n");
 		
-				printf(" Seu Tabuleiro:                 Pontos: %d \n \n", pntJ);
+				printf(" Seu Tabuleiro:                \n \n");
 				printf("   0 1 2 3 4 5 6 7 8 9  \n");
 				mostratabJ(tabJ); //mostra o tabuleiro do Jogador com os navios
 				
@@ -276,14 +279,37 @@ int main(){
 				    do{
 					    printf("\n Sua vez, escolha uma linha e coluna\n");
 					    printf(" linha: ");
-					    scanf("%d", &i);
+					    scanf(" %c", &temp);
+                        if (temp == 'a' || temp == 'A')
+                            i = 0;
+                        else if (temp == 'b' || temp == 'B')
+                            i = 1;
+                        else if (temp == 'c' || temp == 'C')
+                            i = 2;
+                        else if (temp == 'd' || temp == 'D')
+                            i = 3;
+                        else if (temp == 'e' || temp == 'E')
+                            i = 4;
+                        else if (temp == 'f' || temp == 'F')
+                            i = 5;
+                        else if (temp == 'g' || temp == 'G')
+                            i = 6;
+                        else if (temp == 'h' || temp == 'H')
+                            i = 7;
+                        else if (temp == 'i' || temp == 'I')
+                            i = 8;
+                        else if (temp == 'j' || temp == 'J')
+                            i = 9;
+                        else
+                            i = 100;
+        
 					    printf("\n coluna: ");
 					    scanf("%d", &j);
 					    if(i<0 || i>9 || j<0 || j>9){
 					        printf("Coordenadas inválidas,digite novamente\n");
 					    }
-				    }
-				    while(i<0 || i>9 || j<0 || j>9);
+				    }while(i<0 || i>9 || j<0 || j>9);
+
 					tiro(tabC, i, j, cC);
 					verificatiro = verificador(tabC, i, j);
 					numtirosJ  ++;
@@ -320,8 +346,10 @@ int main(){
 						pntJ +=25;
 					}
 				}
+                //printf("\033[H\033[J");   // limpa terminal
 				printf("\n Porfavor, aperte alguma tecla para continuar");
 				getchar();
+                printf("\033[H\033[J");   // limpa terminal
 				if((pntC==75 )|| (pntJ ==75)){
 					verificatiro =0;
 				}
@@ -336,20 +364,20 @@ int main(){
 			if((pntC == 75) || (pntJ==75)){
 				fim=1;
 			}
-		}while(fim == 0); // o Jogo n�o acaba enquanto o PC ou Jogador atingirem os pontos, que seria derrubar todos os navios
+		}while(fim == 0); // o Jogo nao acaba enquanto o PC ou Jogador atingirem os pontos, que seria derrubar todos os navios
 		
 		if(pntJ > pntC){
 			printf("\n\n      V O C E   V E N C E U !!!");
-			printf("\n  Sua pontuacao: %d", pntJ);
+			//printf("\n  Sua pontuacao: %d", pntJ);
 			printf("\n Seu Numero de tiros: %d\n\n", numtirosJ);
-			printf("\n  Pontuacao do inimigo: %d", pntC);
+			//printf("\n  Pontuacao do inimigo: %d", pntC);
 			printf("\n Numero de tiros do inimigo: %d\n", numtirosC);
 		}
 		if(pntC > pntJ){
 			printf("\n\n     O   I N I M I G O   V E N C E U !");
-			printf("\n  Pontuacao do inimigo: %d", pntC);
+			//printf("\n  Pontuacao do inimigo: %d", pntC);
 			printf("\n Numero de tiros do inimigo: %d\n", numtirosC);
-			printf("\n\n  Sua pontuacao: %d", pntJ);
+			//printf("\n\n  Sua pontuacao: %d", pntJ);
 			printf("\n Seu Numero de tiros: %d", numtirosJ);
 		}
 		
