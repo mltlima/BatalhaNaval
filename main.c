@@ -1,5 +1,6 @@
-#include<stdio.h>//Jogo BATALHA NAVAL 
-#include<stdlib.h>//Developed by GRUPO 10 ;)
+#include <stdio.h>//Jogo BATALHA NAVAL 
+#include <stdlib.h>//Developed by GRUPO 10 ;)
+#include <string.h>
 
 #define VER  "\033[0;31m" // Cor vermelha
 #define CIA  "\033[1;36m" // Cor Ciano
@@ -200,11 +201,72 @@ int verificador(char tabs[][10], int i, int j){
 		return 0;
 	}
 }
+/* 
+int verificaLinha(int *i)
+{   
+    char  temp, inputUsuario[64];
+    size_t length = 0;
+    int num = 0, index = 0, flag = 0, check = 0;
+
+    while (check == 0)
+                        {
+                            length = 0;
+                            flag = 0;
+                            check = 0;
+
+                            printf("\n linha: ");
+                            fgets(inputUsuario,63,stdin);
+                            length = strlen(inputUsuario);
+
+                            if( length < 1 || length > 2) {
+			                    printf("Tamanho invalido\n");
+			                    continue;
+                            }
+                            length --;
+
+
+		                    if( (inputUsuario[0] == 'a') || (inputUsuario[0] == 'A') || (inputUsuario[0] == 'b') || (inputUsuario[0] == 'B') || (inputUsuario[0] == 'c') || (inputUsuario[0] == 'C')) {
+		                    	check ++;
+		                    	continue;
+		                    }
+
+		                    printf("Caracter invalido\n");
+                        }
+                        temp = inputUsuario[0];
+
+                        
+                        if (temp == 'a' || temp == 'A')
+                            i = 0;
+                        else if (temp == 'b' || temp == 'B')
+                            i = 1;
+                        else if (temp == 'c' || temp == 'C')
+                            i = 2;
+                        else if (temp == 'd' || temp == 'D')
+                            i = 3;
+                        else if (temp == 'e' || temp == 'E')
+                            i = 4;
+                        else if (temp == 'f' || temp == 'F')
+                            i = 5;
+                        else if (temp == 'g' || temp == 'G')
+                            i = 6;
+                        else if (temp == 'h' || temp == 'H')
+                            i = 7;
+                        else if (temp == 'i' || temp == 'I')
+                            i = 8;
+                        else if (temp == 'j' || temp == 'J')
+                            i = 9;
+                        else
+                            i = 100;
+}
+*/
+
 int main(void)
 {
 	int qmjoga, count=0, pntC=0, pntJ=0, numtirosC=0,numtirosJ=0, verificatiro, i, j, fim=0;
 	int cC[5], cJ[5]; //s�o os contadores de cada navio, pois cada parte atingida soma um  e atingindo determinada quantia significa q o navio foi detruido
-	char tabC[10][10],tabJ[10][10], op, temp; //op ve se o usuario vai jogar ou fechar
+	char tabC[10][10],tabJ[10][10], op, temp, inputUsuario[64]; //op ve se o usuario vai jogar ou fechar
+    size_t length = 0;
+    int num = 0, index = 0, flag = 0, check = 0;
 
 
 	geratab(tabC); //Gera  o Tab. do PC
@@ -276,10 +338,41 @@ int main(void)
 					}
 				}
 				else{// Jogador atira
-				    do{
+                        
 					    printf("\n Sua vez, escolha uma linha e coluna\n");
-					    printf(" linha: ");
-					    scanf(" %c", &temp);
+					    
+                        while (check == 0)
+                        {
+                            length = 0;
+                            flag = 0;
+                            check = 0;
+
+                            printf("\n linha: ");
+                            fgets(inputUsuario,63,stdin);
+                            length = strlen(inputUsuario);
+
+                            if( length < 1 || length > 2) {
+			                    printf("Tamanho invalido\n");
+			                    continue;
+                            }
+                            length --;
+
+
+		                    if( (inputUsuario[0] == 'a') || (inputUsuario[0] == 'A') || (inputUsuario[0] == 'b') || (inputUsuario[0] == 'B') 
+                            || (inputUsuario[0] == 'c') || (inputUsuario[0] == 'C') || (inputUsuario[0] == 'd') || (inputUsuario[0] == 'D')
+                            || (inputUsuario[0] == 'e') || (inputUsuario[0] == 'E') || (inputUsuario[0] == 'f') || (inputUsuario[0] == 'F')
+                            || (inputUsuario[0] == 'g') || (inputUsuario[0] == 'G') || (inputUsuario[0] == 'h') || (inputUsuario[0] == 'H')
+                            || (inputUsuario[0] == 'i') || (inputUsuario[0] == 'I') || (inputUsuario[0] == 'j') || (inputUsuario[0] == 'J')) {
+		                    	check ++;
+		                    	continue;
+		                    }
+
+		                    printf("Caracter invalido\n");
+                        }
+                        temp = inputUsuario[0];
+                        check = 0;
+
+                        
                         if (temp == 'a' || temp == 'A')
                             i = 0;
                         else if (temp == 'b' || temp == 'B')
@@ -302,13 +395,53 @@ int main(void)
                             i = 9;
                         else
                             i = 100;
+                        
+                        //verificaLinha(*i);
         
-					    printf("\n coluna: ");
-					    scanf("%d", &j);
-					    if(i<0 || i>9 || j<0 || j>9){
-					        printf("Coordenadas inválidas,digite novamente\n");
-					    }
-				    }while(i<0 || i>9 || j<0 || j>9);
+					    //printf("\n coluna: ");
+					    //scanf("%d", &j);
+                        while (num == 0)
+                        {
+                            length = 0;
+                            flag = 0;
+                            num = 0;
+
+                            printf("\n coluna: ");
+                            fgets(inputUsuario,63,stdin);
+                            length = strlen(inputUsuario);
+
+                            if( length < 1 || length > 2) {
+			                    printf("Tamanho invalido\n");
+			                    continue;
+                            }
+                            length --;
+
+                            for(index = 0; index < length; ++index) 
+                            {
+		                	    if(inputUsuario[index] < '0' || inputUsuario[index] > '9') {
+		                		flag = 1;
+		                		break;
+		                	}
+		                    }
+
+		                    if( flag) {
+		                    	printf("Invalid character\n");
+		                    	continue;			
+		                    }
+
+		                    if( sscanf(inputUsuario, "%d", &num) != 1) {
+		                    	printf("Invalid sscanf()\n");
+		                    	continue;
+		                    }
+
+                        }
+                        
+                        j = num;
+                        num = 0;
+                    
+                        
+					    
+				    
 
 					tiro(tabC, i, j, cC);
 					verificatiro = verificador(tabC, i, j);
