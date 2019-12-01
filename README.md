@@ -1,4 +1,4 @@
-Batalha Naval
+** Batalha Naval **
 
 Jogo trabalho computaçao UFRJ
 Turma Ciencia da Computação
