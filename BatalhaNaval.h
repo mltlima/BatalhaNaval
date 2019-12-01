@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
@@ -35,3 +35,5 @@ void tiro(char tab[][10], int i, int j, int c[]);
 int verificador(char tabs[][10], int i, int j);
 int modoAlvo(char tab[][10], int *i, int *j,int *direcao,int acertoI,int acertoJ);
 void jogoPrincipal(void);
+void posicionamentoNaviosDemo(char tab[][10]);
+void jogoDemo(void);
