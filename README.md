@@ -1,5 +1,7 @@
 # Batalha Naval 
 
+## Alunos Miguel Lima Tavares,
+
 Jogo trabalho computaçao UFRJ
 Turma Ciencia da Computação
 Prof: Valéria Bastos
