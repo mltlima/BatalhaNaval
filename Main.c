@@ -35,7 +35,7 @@ int main(void)
             jogoPrincipal();
             break;
         case 2:
-            
+            demo();
             break;
         case 3:
             instrucoes();
