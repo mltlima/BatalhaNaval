@@ -362,7 +362,7 @@ void jogoPrincipal(void)
         posicionamentoNavios(tabComputador);
         posicionamentoNavios(tabJogador);
 
-        quemJoga = 0;//rand() % 2; // 0 Computador inicia o jogo, 1 Jogador inicia
+        quemJoga = rand() % 2; // 0 Computador inicia o jogo, 1 Jogador inicia
 
         do  // jogo
         {   
