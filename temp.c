@@ -362,7 +362,7 @@ void jogoPrincipal(void)
         posicionamentoNavios(tabComputador);
         posicionamentoNavios(tabJogador);
 
-        quemJoga = rand() % 2; // 0 Computador inicia o jogo, 1 Jogador inicia
+        quemJoga = 0;//rand() % 2; // 0 Computador inicia o jogo, 1 Jogador inicia
 
         do  // jogo
         {   
@@ -374,7 +374,7 @@ void jogoPrincipal(void)
                 if (quemJoga == 0) // Rodada do computador
                 {
                     printf(CIA"\n Computador esta jogando...\n"RESET);
-
+					
 					int check = 0;
 	
 
@@ -398,60 +398,50 @@ void jogoPrincipal(void)
 					}
 
 
-
+					
 
                     if (modoAi == 0) // Modo aleatorio
                     {	
 						
                         do
-                        {
-                           i = rand() % 10;
-                           j = rand() % 10;
-                           verificatiro = verificadorCampoValido(tabJogador, i, j);
+						{
+                         	i = rand() % 10;
+                        	j = rand() % 10;
+                           	verificatiro = verificadorCampoValido(tabJogador, i, j);
                         } while (verificatiro == 1);
 
                         tiro(tabJogador, i, j, contadorJogador);
                         tirosComputador ++;
+						
                         
                     }
-
+					
                     if (modoAi == 1) // Troca para o modo alvo  
                     {	
-						do
+						//do
                         {
-                           modoAlvo(tabComputador,&i,&j,&direcao,acertoPosicaoI,acertoPosicaoJ);
+                           modoAlvo(tabComputador,&i,&j,&direcao,acertoPosicaoI,acertoPosicaoJ);  // TODO mais tarde
                            verificatiro = verificadorCampoValido(tabJogador, i, j);
-                        } while (verificatiro == 1);
+                        } //while (verificatiro == 1);
 
                         tiro(tabJogador, i, j, contadorJogador);
-                        //verificatiro = verificador(tabJogador, i, j);
+                        
 						tirosComputador ++;
 
-
+					}
+					
 
                     verificatiro = verificador(tabJogador, i, j);
 
                     if(verificatiro == 1){
-						printf(VER"\nInimigo acertou!"RESET);
+						printf(VER"\nComputador acertou!"RESET);
 						if(modoAi == 0){
 							direcao = rand()%4;
 							acertoPosicaoI = i;
 							acertoPosicaoJ = j;
 							modoAi = 1;
 							}
-						else
-						{
-							if (direcao == 0 || direcao == 1)
-							{
-								delCoordenada[2].direcao = 1;
-								delCoordenada[3].direcao = 1;
-							}
-							if (direcao == 2 || direcao == 3)
-							{
-								delCoordenada[0].direcao = 1;
-								delCoordenada[1].direcao = 1;
-							}	
-						}
+						
 						
 					}
 					
@@ -555,7 +545,7 @@ void jogoPrincipal(void)
 							delCoordenada[i] = vazia[0]; // zera array para proxima jogada
 						}
 					}
-					}
+					
 
                     if(contadorJogador[2] == 3){
 						printf(VER"\nInimigo derrubou seu Destroyer!\n"RESET);
@@ -729,13 +719,13 @@ void jogoPrincipal(void)
 					verificatiro = 0;
 				}    
             } while (verificatiro == 1);
-            
+            /*
             if(quemJoga == 0){ // muda a vez para o jogador
 				quemJoga = 1;
 			}
 			else{  // muda a vez para o computador
 				quemJoga = 0;
-			}
+			}*/
 			
 			if((pontoComputador == 75) || (pontoJogador == 75)){
 				fim = 1;
