@@ -1,6 +1,6 @@
 # Batalha Naval 
 
-## Alunos Miguel Lima Tavares,
+## Alunos Miguel Lima Tavares DRE: 1161571,
 
 Jogo trabalho computaçao UFRJ
 Turma Ciencia da Computação
