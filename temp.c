@@ -241,10 +241,18 @@ int verificador(char tabs[][10], int i, int j){
 	}
 }
 
+int verificadorCampoValido(char tab[][10], int i, int j)
+{
+	if (tab[i][j] == '*' || tab[i][j] == 'x')
+		return 1;
+	else
+		return 0;
+}
+
 int modoAlvo(char tab[][10], int *i, int *j,int *direcao,int acertoI,int acertoJ)
 {	
 	int temp;
-	
+		
 	do{switch (*direcao)
 		{
 		case 0: // Norte
@@ -331,7 +339,7 @@ void jogoPrincipal(void)
 {   
     int count = 0, pontoComputador = 0, pontoJogador = 0, tirosComputador = 0, tirosJogador = 0, fim = 0;
     int num = 0, index = 0, flag = 0, check = 0, modoAi = 0;
-    int quemJoga, verificatiro, i, j, coluna, acertoPosicaoI, acertoPosicaoJ, direcao;
+    int quemJoga, verificatiro, i, j, coluna, acertoPosicaoI, acertoPosicaoJ, direcao,linhaJogador,colunaJogador;
     int contadorComputador[5], contadorJogador[5]; // verifica qual navio foi afundado
     char tabComputador[10][10], tabJogador[10][10], inputUsuario[64];
     char temp, numUsuario[1];
@@ -354,7 +362,7 @@ void jogoPrincipal(void)
         posicionamentoNavios(tabComputador);
         posicionamentoNavios(tabJogador);
 
-        quemJoga = rand() % 2; // 0 Computador inicia o jogo, 1 Jogador inicia
+        quemJoga = 0;//rand() % 2; // 0 Computador inicia o jogo, 1 Jogador inicia
 
         do  // jogo
         {   
@@ -366,16 +374,40 @@ void jogoPrincipal(void)
                 if (quemJoga == 0) // Rodada do computador
                 {
                     printf(CIA"\n Computador esta jogando...\n"RESET);
-					printf(VER "\n i salvo: %d j salvo: %d\n"RESET,acertoPosicaoI,acertoPosicaoJ);
-					printf(BLINK VER"\nModo ai: %d \n"RESET,modoAi);
+
+					int check = 0;
+	
+
+					for (int i = 0; i < 4; i++)
+					{
+						if (delCoordenada[i].direcao == 1)   // Verifica se os vetores foram todos zerados
+						{
+							check ++;
+						}
+						
+					}
+				
+					if (check == 4)
+					{	
+						for (int i = 0; i < 4; i++)
+							{
+								delCoordenada[i] = vazia[0];
+							}	
+						
+						modoAi = 0;
+					}
+
+
+
 
                     if (modoAi == 0) // Modo aleatorio
-                    {
+                    {	
+						
                         do
                         {
-                           i = rand() % 9;
-                           j = rand() % 9;
-                           verificatiro = verificador(tabJogador, i, j);
+                           i = rand() % 10;
+                           j = rand() % 10;
+                           verificatiro = verificadorCampoValido(tabJogador, i, j);
                         } while (verificatiro == 1);
 
                         tiro(tabJogador, i, j, contadorJogador);
@@ -388,86 +420,13 @@ void jogoPrincipal(void)
 						do
                         {
                            modoAlvo(tabComputador,&i,&j,&direcao,acertoPosicaoI,acertoPosicaoJ);
-                           verificatiro = verificador(tabJogador, i, j);
+                           verificatiro = verificadorCampoValido(tabJogador, i, j);
                         } while (verificatiro == 1);
 
-                        //modoAlvo(tabComputador,&i,&j,&direcao,acertoPosicaoI,acertoPosicaoJ);
-
                         tiro(tabJogador, i, j, contadorJogador);
-                        verificatiro = verificador(tabJogador, i, j);
+                        //verificatiro = verificador(tabJogador, i, j);
 						tirosComputador ++;
 
-                       /*  if (verificatiro != 1)
-                        {
-                            switch (direcao)
-							{
-							case 0: // Norte
-								for (int i = 0; i < 4; i++)
-								{
-									if (delCoordenada[i].direcao == 1)
-										continue;
-									else{
-										direcao = i;
-										break;	
-									}
-								}
-								
-								i = acertoPosicaoI;
-								delCoordenada[0].direcao = 1;
-								break;
-
-
-							case 1: // Sul
-								for (int i = 0; i < 4; i++)
-								{
-									if (delCoordenada[i].direcao == 1)
-										continue;
-									else{
-										direcao = i;
-										break;	
-									}	
-								}
-
-								i = acertoPosicaoI;
-								delCoordenada[1].direcao = 1;
-								break;
-
-
-							case 2:	//Leste
-								for (int i = 0; i < 4; i++)
-								{
-									if (delCoordenada[i].direcao == 1)
-										continue;
-									else{
-										direcao = i;
-										break;	
-									}	
-								}
-
-								j = acertoPosicaoJ;
-								delCoordenada[2].direcao = 1;
-								break;
-
-
-							case 3:	// Oeste
-								for (int i = 0; i < 4; i++)
-								{
-									if (delCoordenada[i].direcao == 1)
-										continue;
-									else{
-										direcao = i;
-										break;	
-									}	
-								}
-
-								j = acertoPosicaoJ;
-								delCoordenada[3].direcao = 1;
-								break;
-							}
-						}*/
-                        
-                            //tirosComputador ++;   
-                    }
 
 
                     verificatiro = verificador(tabJogador, i, j);
@@ -478,14 +437,26 @@ void jogoPrincipal(void)
 							direcao = rand()%4;
 							acertoPosicaoI = i;
 							acertoPosicaoJ = j;
+							modoAi = 1;
 							}
-						modoAi = 1;
+						else
+						{
+							if (direcao == 0 || direcao == 1)
+							{
+								delCoordenada[2].direcao = 1;
+								delCoordenada[3].direcao = 1;
+							}
+							if (direcao == 2 || direcao == 3)
+							{
+								delCoordenada[0].direcao = 1;
+								delCoordenada[1].direcao = 1;
+							}	
+						}
+						
 					}
 					
 					else if (verificatiro != 1 && modoAi == 1)
 					{
-						if (verificatiro != 1)
-                        {
                             switch (direcao)
 							{
 							case 0: // Norte
@@ -551,16 +522,12 @@ void jogoPrincipal(void)
 								delCoordenada[3].direcao = 1;
 								break;
 							}
-                        }
-						printf("\nTiro errado!");
-						
-						
+						printf("\nTiro errado!");					
 					}
-					
 
 					else{
 						printf("\nTiro errado!");
-						//quemJoga = 1;
+						
 					}
 
 					
@@ -576,6 +543,18 @@ void jogoPrincipal(void)
 						{
 							delCoordenada[i] = vazia[0]; // zera array para proxima jogada
 						}
+					}
+
+					if(contadorJogador[1] == 2){
+						printf(VER"\nComputador derrubou seu Cruzador!\n"RESET);
+						contadorJogador[1]++; // para nao repetir mais essa mensagem quando entrar no la�o novamente
+						pontoComputador += 10;
+						modoAi = 0;
+						for (int i = 0; i < 4; i++)
+						{
+							delCoordenada[i] = vazia[0]; // zera array para proxima jogada
+						}
+					}
 					}
 
                     if(contadorJogador[2] == 3){
@@ -647,27 +626,27 @@ void jogoPrincipal(void)
                         check = 0;
 
                         if (temp == 'a' || temp == 'A')
-                            i = 0;
+                            linhaJogador = 0;
                         else if (temp == 'b' || temp == 'B')
-                            i = 1;
+                            linhaJogador = 1;
                         else if (temp == 'c' || temp == 'C')
-                            i = 2;
+                            linhaJogador = 2;
                         else if (temp == 'd' || temp == 'D')
-                            i = 3;
+                            linhaJogador = 3;
                         else if (temp == 'e' || temp == 'E')
-                            i = 4;
+                            linhaJogador = 4;
                         else if (temp == 'f' || temp == 'F')
-                            i = 5;
+                            linhaJogador = 5;
                         else if (temp == 'g' || temp == 'G')
-                            i = 6;
+                            linhaJogador = 6;
                         else if (temp == 'h' || temp == 'H')
-                            i = 7;
+                            linhaJogador = 7;
                         else if (temp == 'i' || temp == 'I')
-                            i = 8;
+                            linhaJogador = 8;
                         else if (temp == 'j' || temp == 'J')
-                            i = 9;
+                            linhaJogador = 9;
                         else
-                            i = 100;
+                            linhaJogador = 100;
 
                         while (1)     // valida coluna
 						{	
@@ -697,17 +676,17 @@ void jogoPrincipal(void)
 		                    	continue;			
 		                    }
 
-							sscanf(inputUsuario,"%d",&j);
+							sscanf(inputUsuario,"%d",&colunaJogador);
 							
-							if (j == 0 || j == 1 || j == 2 || j == 3 || j == 4 || j == 5 || j == 6 || j == 7 || j == 8 || j == 9)
+							if (colunaJogador == 0 || colunaJogador == 1 || colunaJogador == 2 || colunaJogador == 3 || colunaJogador == 4 || colunaJogador == 5 || colunaJogador == 6 || colunaJogador == 7 || colunaJogador == 8 || colunaJogador == 9)
 							{
 								break;
 							}
 							printf("Digite um numero valido");
 						}
 
-                    tiro(tabComputador, i, j, contadorComputador);
-                    verificatiro = verificador(tabComputador, i, j);
+                    tiro(tabComputador, linhaJogador, colunaJogador, contadorComputador);
+                    verificatiro = verificador(tabComputador, linhaJogador, colunaJogador);
                     tirosJogador ++;
 
                     if(verificatiro == 1){
@@ -722,7 +701,7 @@ void jogoPrincipal(void)
 						pontoJogador += 5;
 					}
 					if(contadorComputador[1] == 2){
-						printf(VERDE"\nVoce derrubou o cruzador do inimigo!\n"RESET);
+						printf(VERDE"\nVoce derrubou o Cruzador do inimigo!\n"RESET);
 						contadorComputador[1]++; // para nao repetir mais essa mensagem quando entrar no la�o novamente
 						pontoJogador += 10;
 					}
@@ -732,7 +711,7 @@ void jogoPrincipal(void)
 						pontoJogador += 15;
 					}
 					if(contadorComputador[3] == 4){
-						printf(VERDE"\nVoce derrubou o Encoura�ado do inimigo!\n"RESET);
+						printf(VERDE"\nVoce derrubou o Encouracado do inimigo!\n"RESET);
 						contadorComputador[3]++; // para nao repetir mais essa mensagem quando entrar no la�o novamente
 						pontoJogador += 20;
 					}
@@ -757,6 +736,7 @@ void jogoPrincipal(void)
 			else{  // muda a vez para o computador
 				quemJoga = 0;
 			}
+			
 			if((pontoComputador == 75) || (pontoJogador == 75)){
 				fim = 1;
 			}
