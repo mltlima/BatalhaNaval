@@ -109,6 +109,7 @@ void jogoDemo(void)
                         {
                            modoAlvo(tabComputador,&i,&j,&direcao,acertoPosicaoI,acertoPosicaoJ);  // TODO mais tarde
                            verificatiro = verificadorCampoValido(tabJogador, i, j);
+						  
                         } //while (verificatiro == 1);
 
                         tiro(tabJogador, i, j, contadorJogador);
@@ -128,12 +129,29 @@ void jogoDemo(void)
 							acertoPosicaoJ = j;
 							modoAi = 1;
 							}
+						else
+						{	
+							if (direcao == 0 || direcao == 1)
+							{
+								delCoordenada[2].direcao = 1;
+								delCoordenada[3].direcao = 1;	         // Deleta as duas direcoes perpendiculares ao acertar um 
+							}											 // tiro no modo alvo							
+							else
+							{
+								delCoordenada[0].direcao = 1;
+								delCoordenada[1].direcao = 1;
+							}
+							
+							
+						}
 						
 						
 					}
 					
 					else if (verificatiro != 1 && modoAi == 1)
-					{
+					{		
+							printf(VERDE"\nTiro errado!"RESET);
+
                             switch (direcao)
 							{
 							case 0: // Norte
@@ -199,11 +217,11 @@ void jogoDemo(void)
 								delCoordenada[3].direcao = 1;
 								break;
 							}
-						printf("\nTiro errado!");					
+											
 					}
 
 					else{
-						printf("\nTiro errado!");
+						printf(VERDE"\nTiro errado!"RESET);
 						
 					}
 
@@ -325,42 +343,42 @@ void jogoDemo(void)
                         else
                             linhaJogador = 100;
 
-                        while (1)     // valida coluna
-						{	
-							length = 0;
-							
-							printf("\n coluna: ");
+
+
+
+                        while (check == 0)  // valida coluna
+                        {
+                            length = 0;
+                            flag = 0;
+                            check = 0;
+
+                            printf("\n coluna: ");
                             fgets(inputUsuario,63,stdin);
-							length = strlen(inputUsuario);
+                            length = strlen(inputUsuario);
 
-
-							if( length < 1 || length > 2) {
+                            if( length < 1 || length > 2) {
 			                    printf("Tamanho invalido\n");
 			                    continue;
                             }
                             length --;
 
-							for(index = 0; index < length; ++index) 
-                            {
-		                	    if(isalpha(inputUsuario[index])) {
-		                		flag = 1;
-		                		break;
-		                	}
-		                    }
-							if( flag) {
-		                    	printf("digite um numero\n");
-								flag = 0;
-		                    	continue;			
+
+		                    if( (inputUsuario[0] == '0') || (inputUsuario[0] == '1') || (inputUsuario[0] == '2') || (inputUsuario[0] == '3') 
+                            || (inputUsuario[0] == '4') || (inputUsuario[0] == '5') || (inputUsuario[0] == '6') || (inputUsuario[0] == '7')
+                            || (inputUsuario[0] == '8') || (inputUsuario[0] == '9') ) {
+		                    	check ++;
+                        		sscanf(inputUsuario,"%d",&colunaJogador);
+		                    	continue;
 		                    }
 
-							sscanf(inputUsuario,"%d",&colunaJogador);
-							
-							if (colunaJogador == 0 || colunaJogador == 1 || colunaJogador == 2 || colunaJogador == 3 || colunaJogador == 4 || colunaJogador == 5 || colunaJogador == 6 || colunaJogador == 7 || colunaJogador == 8 || colunaJogador == 9)
-							{
-								break;
-							}
-							printf("Digite um numero valido");
-						}
+		                    printf("Caracter invalido\n");
+                        }
+
+						check = 0;
+
+
+
+
 
                     tiro(tabComputador, linhaJogador, colunaJogador, contadorComputador);
                     verificatiro = verificador(tabComputador, linhaJogador, colunaJogador);
