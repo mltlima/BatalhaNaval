@@ -46,7 +46,7 @@ void jogoDemo(void)
     
         
 
-        osicionamentoNaviosDemo(tabComputador);
+        posicionamentoNaviosDemo(tabComputador);
         posicionamentoNavios(tabJogador);
 
         quemJoga = rand() % 2; // 0 Computador inicia o jogo, 1 Jogador inicia
