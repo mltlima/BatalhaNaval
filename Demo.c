@@ -399,7 +399,7 @@ void jogoDemo(void)
 					}
                     }
 
-                printf(CIA"\n Porfavor, aperte alguma tecla para continuar"RESET);
+                printf(CIA"\n Pressione Enter para continuar"RESET);
 				getchar();
                 printf(CLEAN);   // limpa terminal
 				if((pontoComputador == 75 )|| (pontoJogador == 75)){
