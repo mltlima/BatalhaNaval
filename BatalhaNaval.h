@@ -37,3 +37,4 @@ int modoAlvo(char tab[][10], int *i, int *j,int *direcao,int acertoI,int acertoJ
 void jogoPrincipal(void);
 void posicionamentoNaviosDemo(char tab[][10]);
 void jogoDemo(void);
+int verificadorCampoValido(char tab[][10], int i, int j);
