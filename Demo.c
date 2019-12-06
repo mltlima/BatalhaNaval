@@ -105,12 +105,12 @@ void jogoDemo(void)
 					
                     if (modoAi == 1) // Troca para o modo alvo  
                     {	
-						//do
+						do
                         {
                            modoAlvo(tabComputador,&i,&j,&direcao,acertoPosicaoI,acertoPosicaoJ);  // TODO mais tarde
                            verificatiro = verificadorCampoValido(tabJogador, i, j);
 						  
-                        } //while (verificatiro == 1);
+                        } while (verificatiro == 1);
 
                         tiro(tabJogador, i, j, contadorJogador);
                         
@@ -142,8 +142,8 @@ void jogoDemo(void)
 								delCoordenada[1].direcao = 1;
 							}
 							
-							
 						}
+							
 						
 						
 					}
